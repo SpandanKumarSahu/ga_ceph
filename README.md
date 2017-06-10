@@ -10,3 +10,9 @@
 * Introduce n-match algorithm and replace the Roulette method.
 * Implement the same for floating point numbers.
 * Use in combination with python-crush/crush/optimize.py
+
+# Specific TODO
+
+* Implement `remove_similar_chromo()`
+* Implement `favoritism()`
+* Implement `assign_fitness()` [This is specific to Ceph]
