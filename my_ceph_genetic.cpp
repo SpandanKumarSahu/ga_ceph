@@ -5,21 +5,9 @@
 #include <math.h>
 #include <bits/stdc++.h>
 #include "genetics.h"
+#include "extra_ceph.h"
 
 using namespace std;
-
-// Genetic Algorithms Part
-float CROSSOVER_RATE = 0.7;
-float MUTATION_RATE = 0.001;
-int POP_SIZE;           //must be an even number
-int CHROMO_LENGTH;
-int GENE_LENGTH;
-int MAX_ALLOWABLE_GENERATIONS;
-
-//Ceph Part
-int num_OSD;
-vector<int>weights_OSD;
-int replica_count;
 
 //Returns a float between 0 & 1
 float floatRand(){
@@ -46,6 +34,7 @@ void init(){
       weights_OSD.push_back(temp);
     }
   }
+  set_norm_weights();
 
   CHROMO_LENGTH = num_OSD*7;
   POP_SIZE = max(100, 10*num_OSD);

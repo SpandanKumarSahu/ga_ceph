@@ -88,10 +88,10 @@ void mutate(string &offspring){
 }
 
 //Roullete function
-string Roulette(int total_fitness, chromo_t *curr_population){
+string Roulette(float total_fitness, chromo_t *curr_population, int num_mem = POP_SIZE){
   float Slice = (float)(RANDOM_NUM * total_fitness);
   float FitnessSoFar = 0.0f;
-  for (int i=0; i<POP_SIZE; i++){
+  for (int i=0; i<num_mem; i++){
       FitnessSoFar += Population[i].fitness;
       if (FitnessSoFar >= Slice)
 	       return Population[i].bits;
@@ -132,12 +132,16 @@ void find_best_solution(chromo_t *curr_population){
   ** Should be using n_match method
 */
 void fill_offspring(string &parent1, string &parent2, string &offspring1, string &offspring2){
-  
-}
-
-//[TODO] Assign fitness
-void assign_fitness(chromo_t *curr_population, int &total_fitness){
-
+  assign_individual_fitness(offspring1);
+  assign_individual_fitness(offspring2);
+  chromo_t temp_population[4];
+  temp_population[0] = parent1;
+  temp_population[1] = parent2;
+  temp_population[2] = offspring1;
+  temp_population[3] = offspring2;
+  float total_fitness = parent1.fitness + parent2.fitness + offspring1.fitness + offspring2.fitness;
+  offspring1 = Roulette(total_fitness, temp_population, 4);
+  offspring2 = Roulette(total_fitness, temp_population, 4);
 }
 
 //[TODO] Let the best chromosomes pass on unharmed

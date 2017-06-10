@@ -35,7 +35,6 @@ string convert_to_chromo(vector<int> num);
 vector<int> convert_to_num(string chromo);
 string generateChromosome();
 void population_init(chromo_t *curr_population);
-void assign_fitness(chromo_t *curr_population, int &total_fitness);
 void favoritism(chromo_t *curr_population, chromo_t *next_population, int &count_npop);
 void crossover(string &parent1, string &parent2, string &offspring1, string &offspring2);
 void mutate(string &offspring);
