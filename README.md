@@ -16,4 +16,6 @@
 
 - [] Implement `remove_similar_chromo()`
 - [] Implement `favoritism()`
+- [] Implement probability-based correct selection.
+- [] Needs code-refactoring.
 - [x] Implement `assign_fitness()` [This is specific to Ceph]

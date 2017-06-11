@@ -5,6 +5,10 @@ using namespace std;
 
 //Sets the global constants.
 void init(){
+  CROSSOVER_RATE = 0.7;
+  MUTATION_RATE = 0.001;
+  CORRECT_SELECTION_PROBABILITY = 0.9;
+  
   GENE_LENGTH = 7;
   cout<< "Enter number of OSDs"<<endl;
   cin>> num_OSD;
