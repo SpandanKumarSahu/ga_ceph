@@ -38,7 +38,22 @@ void set_norm_weights(){
 }
 
 vector<float> get_expected_distribution(vector<int>num){
-  
+  string input = to_string(num_OSD) + "\n" + to_string(replica_count) + "\n";
+  for(int i=0; i<num.size(); i++){
+    input += to_string(num.at(i)) + "\n"
+  }
+  fstream f("sample.txt", ios::out);
+  f << input;
+  f.close();
+  system("python crush_simulator.py < sample.txt");
+  vector<float> expected_distribution;
+  fstream file_input("sample.txt");
+  float temp;
+  while(file_input >> temp){
+    expected_distribution.push_back(temp);
+  }
+  system("rm -f sample.txt");
+  return expected_distribution;
 }
 
 vector<float> calculate_diff(vector<float> expected_distribution){
