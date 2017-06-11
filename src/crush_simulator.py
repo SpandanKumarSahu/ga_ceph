@@ -20,7 +20,6 @@ def getWeights( checklist ):
 	return weight_list
 
 def input_weights():
-	print "Enter the weight of the OSDs: "
 	for i in range(num_OSD):
 		temp = input()
 		weights.append(temp)
@@ -38,8 +37,8 @@ def pick( checklist, random_number):
 
 weights = list()
 
-num_OSD = input("Enter the number of OSDs: ")
-replica_count = input("Enter the replica count (<num_OSD): ")
+num_OSD = input()
+replica_count = input()
 input_weights()
 count_objects = 0
 

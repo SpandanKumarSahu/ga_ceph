@@ -69,11 +69,11 @@ string convert_to_chromo(vector<int> num){
     int temp = num.at(count-1);
     count--;
     while(temp != 0){
-      if(j%2 == 1){
+      if(temp%2 == 1){
 	       ar[j] = '1';
       }
       j--;
-      temp>>1;
+      temp = temp/2;
     }
   }
   string temp(ar);
@@ -162,16 +162,24 @@ void find_best_solution(chromo_t *curr_population){
   ** Should be using n_match method
 */
 void fill_offspring(chromo_t &parent1, chromo_t &parent2, chromo_t &offspring1, chromo_t &offspring2){
-  assign_individual_fitness(offspring1);
-  assign_individual_fitness(offspring2);
+  int pop = 0;
   chromo_t temp_population[4];
-  temp_population[0] = parent1;
-  temp_population[1] = parent2;
-  temp_population[2] = offspring1;
-  temp_population[3] = offspring2;
-  float total_fitness = parent1.fitness + parent2.fitness + offspring1.fitness + offspring2.fitness;
-  offspring1 = Roulette(total_fitness, temp_population, 4);
-  offspring2 = Roulette(total_fitness, temp_population, 4);
+  float total_fitness = 0.0f;
+  if(offspring1.bits.size() != 0){
+    assign_individual_fitness(offspring1);
+    temp_population[pop++] = offspring1;
+    total_fitness += offspring1.fitness;
+  }
+  if(offspring2.bits.size() != 0){
+    assign_individual_fitness(offspring2);
+    temp_population[pop++] = offspring2;
+    total_fitness += offspring2.fitness;
+  }
+  temp_population[pop++] = parent1;
+  temp_population[pop++] = parent2;
+  total_fitness += parent1.fitness + parent2.fitness;
+  offspring1 = Roulette(total_fitness, temp_population, pop);
+  offspring2 = Roulette(total_fitness, temp_population, pop);
 }
 
 //[TODO] Let the best chromosomes pass on unharmed
@@ -233,10 +241,10 @@ void set_norm_weights(){
   }
   float total_norm_weight = 0.0f;
   for(int i=0; i<num_OSD-1; i++){
-    norm_weights.at(i) = ((float) weights_OSD.at(i))/total_weight;
+    norm_weights.push_back(((float) weights_OSD.at(i))/total_weight);
     total_norm_weight += norm_weights.at(i);
   }
-  norm_weights.at(num_OSD-1) = 1.0 - total_norm_weight;
+  norm_weights.push_back(1.0 - total_norm_weight);
 }
 
 vector<float> get_expected_distribution(vector<int>num){

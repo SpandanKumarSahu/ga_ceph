@@ -8,11 +8,11 @@ void init(){
   CROSSOVER_RATE = 0.7;
   MUTATION_RATE = 0.001;
   CORRECT_SELECTION_PROBABILITY = 0.9;
-  
+
   GENE_LENGTH = 7;
   cout<< "Enter number of OSDs"<<endl;
   cin>> num_OSD;
-  cout<< " Enter replica count"<<endl;
+  cout<< "Enter replica count"<<endl;
   cin>> replica_count;
 
   cout<< "Enter weights of OSDs:"<<endl;
@@ -30,8 +30,8 @@ void init(){
   set_norm_weights();
 
   CHROMO_LENGTH = num_OSD*7;
-  POP_SIZE = max(100, 10*num_OSD);
-  MAX_ALLOWABLE_GENERATIONS = max(400, 100*num_OSD);
+  POP_SIZE = min(100, 10*num_OSD);
+  MAX_ALLOWABLE_GENERATIONS = min(max(100, 50*num_OSD),500);
 }
 
 int main(){
