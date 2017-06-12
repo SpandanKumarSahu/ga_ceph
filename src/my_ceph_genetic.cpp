@@ -28,9 +28,9 @@ void init(){
   }
   set_norm_weights();
 
-  CHROMO_LENGTH = num_OSD*7;
+  CHROMO_LENGTH = num_OSD*GENE_LENGTH;
   POP_SIZE = min(100, 10*num_OSD);
-  MAX_ALLOWABLE_GENERATIONS = min(max(100, 50*num_OSD),500);
+  MAX_ALLOWABLE_GENERATIONS = min(20*num_OSD,500);
 }
 
 int main(){
@@ -46,7 +46,7 @@ int main(){
     int count_npop = 0;
 
     // The few best are directly promoted.
-    //favoritism(curr_population,next_population, count_npop);
+    favoritism(curr_population,next_population, count_npop);
 
     //The major genetics part
     while(count_npop < POP_SIZE){
@@ -66,6 +66,9 @@ int main(){
 
     //add few random entries. Only after removing certain chromosomes.
     //add_random_chromo(next_population, count_npop);
+
+    //To improve upon the running time, replace similar chromosomes with randomly generated chromosomes
+    //replace_similar_with_random_chromo(next_population);
 
     //Copy next generation back to current generation
     for (int i=0; i<POP_SIZE; i++){

@@ -46,7 +46,7 @@ current_load_distribution = [0]*num_OSD
 current_weights = weights[:]
 norm_weights = normalise(weights)
 
-while (count_objects < 10000):
+while (count_objects < num_OSD*100):
 	checklist = range(num_OSD)
 	picks = 0
 	while (picks <= replica_count):

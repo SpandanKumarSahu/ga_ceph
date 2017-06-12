@@ -1,3 +1,8 @@
+# Build and Run:
+  1. Clone and cd src/
+  2. `g++ -std=c++11 my_ceph_genetic.cpp -o ga_ceph`
+  3. `./ga_ceph`
+
 # Concept
 
 * For the time being, simplifying things, we have an array of integers which need to tuned.
@@ -15,7 +20,9 @@
 # Task List
 
 - [] Implement `remove_similar_chromo()`
-- [] Implement `favoritism()`
+- [x] Implement `favoritism()`
 - [] Implement probability-based correct selection.
 - [] Needs code-refactoring.
 - [x] Implement `assign_fitness()` [This is specific to Ceph]
+- [] Add Makefile
+- [] Use sockets instead of writing to file

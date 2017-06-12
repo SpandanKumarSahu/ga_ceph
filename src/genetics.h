@@ -52,6 +52,7 @@ chromo_t Roulette(int total_fitness, chromo_t *curr_population);
 void fill_offspring(chromo_t &parent1, chromo_t &parent2, chromo_t &offspring1, chromo_t &offspring2);
 void remove_similar_chromo(chromo_t *next_population, int &count_npop);
 void add_random_chromo(chromo_t *next_population, int &count_npop);
+void replace_similar_with_random_chromo(chromo_t *next_population);
 void find_best_solution(chromo_t *curr_population);
 
 //Returns a float between 0 & 1
@@ -182,9 +183,32 @@ void fill_offspring(chromo_t &parent1, chromo_t &parent2, chromo_t &offspring1, 
   offspring2 = Roulette(total_fitness, temp_population, pop);
 }
 
-//[TODO] Let the best chromosomes pass on unharmed
+//Compare two chromosomes.
+bool Compare(chromo_t left, chromo_t right){
+  return left.fitness > right.fitness;
+}
+
+// Let the best chromosomes pass on unharmed
 void favoritism(chromo_t *curr_population, chromo_t *next_population, int &count_npop){
   int favorites = min(10,max(1, (int) (0.05 * POP_SIZE)));
+  priority_queue<chromo_t,vector<chromo_t>,function<bool(chromo_t, chromo_t)>> q(Compare);
+  int count = 0;
+  for(int i=0; i<POP_SIZE; i++){
+    if(count < favorites){
+      q.push(curr_population[i]);
+      count++;
+    }
+    else{
+      if(q.top().fitness < curr_population[i].fitness){
+        q.pop();
+        q.push(curr_population[i]);
+      }
+    }
+  }
+  while(q.size()>0){
+    next_population[count_npop++] = q.top();
+    q.pop();
+  }
 }
 
 //[TODO] Remove similar chromosomes.
@@ -221,7 +245,7 @@ void assign_individual_fitness(chromo_t &chromo){
   for(int i=0; i<diff.size(); i++){
     fitness += diff.at(i);
   }
-  fitness = num_OSD - fitness;
+  fitness = (2.0 - fitness)/2;
   chromo.fitness = fitness;
 }
 
@@ -273,6 +297,5 @@ vector<float> calculate_diff(vector<float> expected_distribution){
   }
   return res;
 }
-
 
 #endif
