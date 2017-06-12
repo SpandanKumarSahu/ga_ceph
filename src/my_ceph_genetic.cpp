@@ -76,7 +76,7 @@ int main(){
       curr_population[i] = next_population[i];
       total_fitness += next_population[i].fitness;
     }
-
+    cout<<(1.0 - ((float)gen_count/MAX_ALLOWABLE_GENERATIONS))*100<<"% completed."<<endl;
   }
 
   find_best_solution(curr_population);
