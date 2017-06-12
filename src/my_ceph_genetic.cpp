@@ -39,10 +39,10 @@ int main(){
   chromo_t curr_population[POP_SIZE];
   chromo_t next_population[POP_SIZE];
   population_init(curr_population);
+  float total_fitness = 0.0f;
+  assign_fitness(curr_population, total_fitness);
 
   while(gen_count--){
-    float total_fitness = 0.0f;
-    assign_fitness(curr_population, total_fitness);
     int count_npop = 0;
 
     // The few best are directly promoted.
@@ -70,9 +70,11 @@ int main(){
     //To improve upon the running time, replace similar chromosomes with randomly generated chromosomes
     //replace_similar_with_random_chromo(next_population);
 
-    //Copy next generation back to current generation
+    //Copy next generation back to current generation and update total_fitness
+    total_fitness = 0.0f;
     for (int i=0; i<POP_SIZE; i++){
       curr_population[i] = next_population[i];
+      total_fitness += next_population[i].fitness;
     }
 
   }

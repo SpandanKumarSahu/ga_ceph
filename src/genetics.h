@@ -88,11 +88,11 @@ vector<int> convert_to_num(string chromo){
     int temp = 1;
     int val = 0;
     for(int j = GENE_LENGTH-1; j >= 0; j--){
-      if(chromo.at(j+i) == '1')
-	     val += temp;
-      temp<<1;
+      if(chromo[j+i] == '1')
+          val += temp;
+      temp *= 2;
     }
-    num.push_back(temp);
+    num.push_back(val);
   }
   return num;
 }
@@ -140,9 +140,6 @@ void add_random_chromo(chromo_t *next_population, int &count_npop){
 
 //Print the result
 void find_best_solution(chromo_t *curr_population){
-  float total_fitness = 0.0f;
-  assign_fitness(curr_population, total_fitness);
-
   int max_index = 0;
   for(int i=1; i<POP_SIZE; i++){
     if(curr_population[i].fitness > curr_population[max_index].fitness)
@@ -154,6 +151,7 @@ void find_best_solution(chromo_t *curr_population){
   for(int i=0; i<res.size(); i++){
     cout<<res.at(i)<<" ";
   }
+  cout<<endl;
 }
 
 /*
